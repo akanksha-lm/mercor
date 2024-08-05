@@ -53,10 +53,6 @@
   margin-left: 0.5rem;
 }
 
-.photos-nav-section .hidden {
-  display: none;
-}
-
 @media (max-width: 600px) {
   .photos-nav-section {
     width: 100%;
@@ -67,6 +63,10 @@
   .nav-bar button {
     margin-right: 0;
     padding: 0.25rem;
+  }
+
+  .nav-bar button.mobile-visible {
+    display: inline-block;
   }
   .mobile-visible {
     display: block;

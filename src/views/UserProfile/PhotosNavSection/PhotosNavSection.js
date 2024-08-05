@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Photos from "./Photos";
 import PromotedPhotos from "./PromotedPhotos";
 import Pill from "../../../components/Pill";
@@ -8,6 +8,18 @@ import styles from "./PhotosNavSection.module.css";
 
 const PhotosNavSection = ({ userDetails }) => {
   const [activeTab, setActiveTab] = useState("Photos");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
@@ -28,7 +40,6 @@ const PhotosNavSection = ({ userDetails }) => {
     {
       name: "User Details",
       id: 1,
-      className: `${styles.hidden} ${styles["mobile-visible"]}`,
     },
     { name: "Photos", id: 2, photoCount: userDetails.total_photos },
     {
@@ -42,26 +53,32 @@ const PhotosNavSection = ({ userDetails }) => {
   return (
     <div className={styles["photos-nav-section"]}>
       <nav className={styles["nav-bar"]}>
-        {navBarButtons.map((button) => (
-          <button
-            key={button.id}
-            className={`${activeTab === button.name ? styles["active"] : ""} ${
-              button.className || ""
-            }`}
-            onClick={() => setActiveTab(button.name)}
-          >
-            {button.name}
-            {button.photoCount && (
-              <Pill
-                count={button.photoCount}
-                className={styles["pill-nav"]}
-                variant={
-                  activeTab === button.name ? "active-pill" : "inactive-pill"
-                }
-              />
-            )}
-          </button>
-        ))}
+        {navBarButtons.map((button) => {
+          if (button.name === "User Details" && !isMobile) {
+            return null;
+          } else {
+            return (
+              <button
+                key={button.id}
+                className={activeTab === button.name ? styles["active"] : ""}
+                onClick={() => setActiveTab(button.name)}
+              >
+                {button.name}
+                {button.photoCount && (
+                  <Pill
+                    count={button.photoCount}
+                    className={styles["pill-nav"]}
+                    variant={
+                      activeTab === button.name
+                        ? "active-pill"
+                        : "inactive-pill"
+                    }
+                  />
+                )}
+              </button>
+            );
+          }
+        })}
       </nav>
       <div className={styles["content"]}>{renderContent()}</div>
     </div>
