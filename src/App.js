@@ -11,6 +11,7 @@ import Feed from "./views/Feed";
 import UserProfile from "./views/UserProfile";
 import NavBar from "./components/NavBar";
 import { setClientId } from "./store/clientSlice";
+import ErrorPage from "./components/ErrorPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/' element={<Navigate to='/home' />} />
         <Route path='/home' element={<Feed />} />
         <Route path='/user/:username' element={<UserProfile />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
     </Router>
   );

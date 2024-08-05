@@ -14,7 +14,7 @@ const UserProfile = () => {
   const { username } = useParams();
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const clientId = useSelector((state) => state.client.clientId);
 
   useEffect(() => {
