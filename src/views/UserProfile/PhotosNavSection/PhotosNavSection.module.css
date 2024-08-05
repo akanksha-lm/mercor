@@ -52,3 +52,23 @@
 .pill-nav {
   margin-left: 0.5rem;
 }
+
+.photos-nav-section .hidden {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .photos-nav-section {
+    width: 100%;
+  }
+  .nav-bar {
+    padding-left: 1rem;
+  }
+  .nav-bar button {
+    margin-right: 0;
+    padding: 0.25rem;
+  }
+  .mobile-visible {
+    display: block;
+  }
+}

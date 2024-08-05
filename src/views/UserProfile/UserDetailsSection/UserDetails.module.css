@@ -4,11 +4,16 @@ p {
 
 .user-details {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   width: 20%;
   padding: 2.5rem;
   position: relative;
   background-color: #fafafa;
+}
+
+.user-profile {
+  min-height: 180px;
 }
 
 .profile-image {
@@ -55,12 +60,9 @@ p {
   font-size: 16px;
   padding: 0;
 }
-.user-profile {
-  height: 180px;
-}
 
 .user-info-section {
-  height: 380px;
+  min-height: 380px;
   width: 100%;
   overflow-y: auto;
   scrollbar-width: none;
@@ -68,4 +70,20 @@ p {
 }
 .user-info-section::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .user-details {
+    width: auto;
+    padding: 2rem;
+    height: calc(100% - 4rem);
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 600px) {
+  .user-details {
+    width: 30%;
+    padding: 1.5rem;
+    height: calc(100% - 4rem);
+  }
 }

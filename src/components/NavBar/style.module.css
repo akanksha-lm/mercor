@@ -13,12 +13,13 @@
 .nav-list {
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
+  padding-left: 0;
 }
 
 .logo-container {
-  width: 5%;
+  width: 12%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,7 +30,7 @@
 }
 
 .search-div {
-  width: 95%;
+  width: 76%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,4 +74,17 @@
 
 .search-button:hover {
   color: #bbbbbb;
+}
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 90%;
+  }
+  .search-button {
+    width: 20%;
+  }
+  .search-input {
+    width: 80%;
+    font-size: 14px;
+  }
 }

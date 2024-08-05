@@ -9,3 +9,22 @@
   grid-template-columns: repeat(3, minmax(350px, 1fr));
   gap: 2rem;
 }
+
+/* Media query for tablets and smaller devices */
+@media (max-width: 1024px) {
+  .photo-feed {
+    grid-template-columns: repeat(2, minmax(350px, 1fr));
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+  .feed-container {
+    padding: 1rem;
+  }
+
+  .photo-feed {
+    grid-template-columns: repeat(1, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+}

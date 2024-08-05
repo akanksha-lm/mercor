@@ -37,7 +37,6 @@ const UserDetails = ({ userDetails }) => {
         <FollowSection userDetails={userDetails} />
         <TagsSection tagsList={tagsList} />
       </div>
-
       <SocialSection userDetails={userDetails} />
     </div>
   );

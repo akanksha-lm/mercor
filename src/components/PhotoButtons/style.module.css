@@ -52,3 +52,10 @@
 .overlay:hover .user-info {
   display: block;
 }
+
+@media (max-width: 1024px) {
+  .user-info,
+  .download-button {
+    display: block;
+  }
+}

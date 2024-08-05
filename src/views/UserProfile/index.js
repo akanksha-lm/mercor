@@ -17,6 +17,8 @@ const UserProfile = () => {
   const [error, setError] = useState(false);
   const clientId = useSelector((state) => state.client.clientId);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
@@ -39,6 +41,15 @@ const UserProfile = () => {
     fetchUserDetails();
   }, [username, clientId]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   let returnContainer = null;
   if (loading) {
     returnContainer = <LoadingPage />;
@@ -47,7 +58,7 @@ const UserProfile = () => {
   } else {
     returnContainer = (
       <>
-        <UserDetails userDetails={userDetails} />
+        {!isMobile && <UserDetails userDetails={userDetails} />}
         <PhotosNavSection userDetails={userDetails} />
       </>
     );

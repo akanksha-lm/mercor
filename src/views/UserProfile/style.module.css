@@ -3,3 +3,9 @@
   height: 92vh;
   display: flex;
 }
+
+@media (max-width: 600px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}

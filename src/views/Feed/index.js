@@ -4,6 +4,8 @@ import axios from "axios";
 
 import PictureCard from "./components/PictureCard";
 import NoData from "../../components/NoData";
+import LoadingPage from "../../components/LoadingPage";
+import ErrorPage from "../../components/ErrorPage";
 import { setShouldFetch } from "../../store/searchSlice";
 
 import styles from "./style.module.css";
@@ -11,6 +13,8 @@ import styles from "./style.module.css";
 const Feed = () => {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const observer = useRef();
   const fetchedPages = useRef(new Set());
 
@@ -25,6 +29,7 @@ const Feed = () => {
       fetchedPages.current.add(page);
 
       try {
+        setLoading(true);
         let response;
         if (!searchQuery) {
           response = await axios.get("https://api.unsplash.com/photos", {
@@ -52,12 +57,16 @@ const Feed = () => {
         }
 
         dispatch(setShouldFetch(false));
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data from Unsplash", error);
+        setError(true);
+        setLoading(false);
       }
     },
     [clientId, searchQuery, dispatch]
   );
+
   useEffect(() => {
     setPhotos([]);
     fetchedPages.current.clear();
@@ -87,6 +96,14 @@ const Feed = () => {
       if (observer.current) observer.current.disconnect();
     };
   }, []);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
+  if (error) {
+    return <ErrorPage error='Error fetching data from Unsplash' />;
+  }
 
   return photos.length === 0 ? (
     <NoData message='No photos found' />
