@@ -1,0 +1,32 @@
+.tags-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+.heading {
+  color: #2a292a;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.tags-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list-item {
+  font-size: 14px;
+  margin: 0.25rem 0;
+  background-color: #4040411a;
+  color: #404041;
+  width: fit-content;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}

@@ -1,0 +1,14 @@
+.pill {
+  padding: 0.2rem 0.4rem;
+  border-radius: 1rem;
+  font-size: 10px;
+}
+
+.active-pill {
+  border: 1px solid #1111115a;
+  color: #111111;
+}
+.inactive-pill {
+  border: 1px solid #9e9e9e5a;
+  color: #9e9e9e;
+}

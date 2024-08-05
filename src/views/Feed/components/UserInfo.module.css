@@ -1,0 +1,25 @@
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.photo-author {
+  font-weight: bold;
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+.photo-time {
+  color: #d2d2d2;
+  font-size: 12px;
+  margin: 0;
+}
+
+.profile-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}

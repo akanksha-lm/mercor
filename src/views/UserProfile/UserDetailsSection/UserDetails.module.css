@@ -1,0 +1,71 @@
+p {
+  margin: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  padding: 2.5rem;
+  position: relative;
+  background-color: #fafafa;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.heading {
+  color: #2a292a;
+  font-size: 24px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.user-details .available-badge {
+  color: #07b871;
+  font-size: 20px;
+  margin-left: 0.5rem;
+}
+
+.bio {
+  color: #8f8d92;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 1rem 0;
+  word-wrap: break-word;
+}
+
+.location {
+  color: #a9a8ab;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.location-icon {
+  font-size: 16px;
+  padding: 0;
+}
+.user-profile {
+  height: 180px;
+}
+
+.user-info-section {
+  height: 380px;
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.user-info-section::-webkit-scrollbar {
+  display: none;
+}

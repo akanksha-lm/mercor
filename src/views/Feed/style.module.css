@@ -1,0 +1,11 @@
+.feed-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.photo-feed {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(350px, 1fr));
+  gap: 2rem;
+}

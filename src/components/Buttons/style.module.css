@@ -1,0 +1,32 @@
+.button {
+  width: fit-content;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-button {
+  color: #767676;
+  background: fixed(180deg, transparent 50%, rgba(10, 20, 30, 0.02));
+  border-radius: 8px;
+  border: 1px solid #d1d1d1;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+.box-button:hover {
+  color: #111111;
+  background-color: #ffffff;
+}
+
+.transparent-button {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+}
+.transparent-button:hover {
+  color: #d2d2d2;
+}

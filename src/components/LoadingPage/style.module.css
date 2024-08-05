@@ -1,0 +1,14 @@
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 100%;
+}
+
+.heading {
+  color: #767676;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
