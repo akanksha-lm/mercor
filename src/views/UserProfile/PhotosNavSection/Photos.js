@@ -71,9 +71,6 @@ const Photos = ({ item }) => {
     if (node) observer.current.observe(node);
   }, []);
 
-  if (loading && photos.length === 0) {
-    return <LoadingPage />;
-  }
   if (error) {
     return <ErrorPage />;
   }
@@ -111,6 +108,7 @@ const Photos = ({ item }) => {
           );
         }
       })}
+      {loading && <LoadingPage className={styles["loading-page"]} />}
     </div>
   );
 };

@@ -29,10 +29,26 @@
   transition: transform 0.3s ease;
 }
 
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 60vw;
+  height: 15vh;
+}
+
 @media (max-width: 1024px) and (min-width: 600px) {
   .photos-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
     padding: 2rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .loading-page {
+    width: 80vw;
+    height: 10vh;
   }
 }

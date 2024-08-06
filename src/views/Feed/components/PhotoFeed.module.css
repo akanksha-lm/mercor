@@ -10,6 +10,15 @@
   gap: 2rem;
 }
 
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 95vw;
+  height: 15vh;
+}
+
 /* Media query for tablets and smaller devices */
 @media (max-width: 1024px) {
   .photo-feed {

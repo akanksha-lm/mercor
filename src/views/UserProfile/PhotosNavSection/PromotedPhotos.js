@@ -48,15 +48,11 @@ const PromotedPhotos = () => {
     fetchPhotos();
   }, [username, clientId]);
 
-  if (loading) {
-    return <LoadingPage />;
-  }
-
   if (error) {
     return <ErrorPage />;
   }
 
-  if (photos.length === 0) {
+  if (!loading && photos.length === 0) {
     return <NoData message='Nothing here!!' />;
   }
 
@@ -74,6 +70,7 @@ const PromotedPhotos = () => {
           </div>
         );
       })}
+      {loading && <LoadingPage className={styles["loading-page"]} />}
     </div>
   );
 };
