@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/mercor/static/css/main.7e415fdc.css",
-    "main.js": "/mercor/static/js/main.6256b46e.js",
+    "main.js": "/mercor/static/js/main.bfdc1f55.js",
     "static/media/notFoundImage.jpg": "/mercor/static/media/notFoundImage.ce293654fc5b055593cf.jpg",
     "static/media/logo.png": "/mercor/static/media/logo.6d9c87745b7c51869351.png",
     "index.html": "/mercor/index.html",
     "main.7e415fdc.css.map": "/mercor/static/css/main.7e415fdc.css.map",
-    "main.6256b46e.js.map": "/mercor/static/js/main.6256b46e.js.map"
+    "main.bfdc1f55.js.map": "/mercor/static/js/main.bfdc1f55.js.map"
   },
   "entrypoints": [
     "static/css/main.7e415fdc.css",
-    "static/js/main.6256b46e.js"
+    "static/js/main.bfdc1f55.js"
   ]
 }
