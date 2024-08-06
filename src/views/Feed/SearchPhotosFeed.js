@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import ErrorPage from "../../components/ErrorPage";
 import PhotoFeed from "./components/PhotoFeed";
+import { setRemainingRequests } from "../../store/clientSlice";
 
 const SearchPhotosFeed = () => {
   const [photos, setPhotos] = useState([]);
@@ -14,6 +15,7 @@ const SearchPhotosFeed = () => {
 
   const clientId = useSelector((state) => state.client.clientId);
   const searchQuery = useSelector((state) => state.search.searchQuery);
+  const dispatch = useDispatch();
 
   const fetchPhotos = useCallback(
     async (page) => {
@@ -35,6 +37,10 @@ const SearchPhotosFeed = () => {
             },
           }
         );
+        // Update remaining requests in the Redux store
+        const rateLimitRemaining = response.headers["x-ratelimit-remaining"];
+        dispatch(setRemainingRequests(rateLimitRemaining));
+
         setPhotos((prevPhotos) => [...prevPhotos, ...response.data.results]);
       } catch (error) {
         console.error("Error fetching data from Unsplash", error);
@@ -42,7 +48,7 @@ const SearchPhotosFeed = () => {
       }
       setLoading(false);
     },
-    [clientId, searchQuery]
+    [clientId, searchQuery, dispatch]
   );
 
   useEffect(() => {

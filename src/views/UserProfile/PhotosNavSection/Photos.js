@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import NoData from "../../../components/NoData";
 import PhotoButtons from "../../../components/PhotoButtons";
 import LoadingPage from "../../../components/LoadingPage";
 import ErrorPage from "../../../components/ErrorPage";
+import { setRemainingRequests } from "../../../store/clientSlice";
 
 import styles from "./Photos.module.css";
 
 const Photos = ({ item }) => {
   const { username } = useParams();
   const clientId = useSelector((state) => state.client.clientId);
+  const dispatch = useDispatch();
 
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [hasMore, setHasMore] = useState(true); // Add state to track if more data is available
   const observer = useRef();
   const fetchedPages = useRef(new Set());
 
@@ -24,7 +27,7 @@ const Photos = ({ item }) => {
 
   useEffect(() => {
     const fetchPhotos = async (page) => {
-      if (fetchedPages.current.has(page)) return;
+      if (fetchedPages.current.has(page) || !hasMore) return;
       fetchedPages.current.add(page);
 
       setLoading(true);
@@ -43,7 +46,15 @@ const Photos = ({ item }) => {
             },
           }
         );
-        setPhotos((prevPhotos) => [...prevPhotos, ...response.data]);
+        // Update remaining requests in the Redux store
+        const rateLimitRemaining = response.headers["x-ratelimit-remaining"];
+        dispatch(setRemainingRequests(rateLimitRemaining));
+
+        if (response.data.length === 0) {
+          setHasMore(false); // No more data available
+        } else {
+          setPhotos((prevPhotos) => [...prevPhotos, ...response.data]);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching photos:", error);
@@ -52,24 +63,28 @@ const Photos = ({ item }) => {
       }
     };
     fetchPhotos(page);
-  }, [page, username, fetchUrl, clientId]);
+  }, [page, username, fetchUrl, clientId, hasMore, dispatch]);
 
   useEffect(() => {
     // Reset state when item changes
     setPhotos([]);
     setPage(1);
+    setHasMore(true); // Reset hasMore state
     fetchedPages.current.clear();
   }, [item]);
 
-  const lastPhotoElementRef = useCallback((node) => {
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    });
-    if (node) observer.current.observe(node);
-  }, []);
+  const lastPhotoElementRef = useCallback(
+    (node) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [hasMore]
+  );
 
   if (error) {
     return <ErrorPage />;

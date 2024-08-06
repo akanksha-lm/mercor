@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import ErrorPage from "../../components/ErrorPage";
 import PhotoFeed from "./components/PhotoFeed";
+import { setRemainingRequests } from "../../store/clientSlice";
 
 const AllPhotosFeed = () => {
   const [photos, setPhotos] = useState([]);
@@ -13,6 +14,7 @@ const AllPhotosFeed = () => {
   const fetchedPages = useRef(new Set());
 
   const clientId = useSelector((state) => state.client.clientId);
+  const dispatch = useDispatch();
 
   const fetchPhotos = useCallback(
     async (page) => {
@@ -30,6 +32,9 @@ const AllPhotosFeed = () => {
             page: page,
           },
         });
+        const rateLimitRemaining = response.headers["x-ratelimit-remaining"];
+        dispatch(setRemainingRequests(rateLimitRemaining));
+
         setPhotos((prevPhotos) => [...prevPhotos, ...response.data]);
         setError(false); // Reset error state on successful fetch
       } catch (error) {
@@ -38,7 +43,7 @@ const AllPhotosFeed = () => {
       }
       setLoading(false);
     },
-    [clientId]
+    [clientId, dispatch]
   );
 
   useEffect(() => {
@@ -66,7 +71,11 @@ const AllPhotosFeed = () => {
   }
 
   return (
-    <PhotoFeed photos={photos} loading={loading} lastPhotoElementRef={lastPhotoElementRef} />
+    <PhotoFeed
+      photos={photos}
+      loading={loading}
+      lastPhotoElementRef={lastPhotoElementRef}
+    />
   );
 };
 

@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 import Feed from "./views/Feed";
 import UserProfile from "./views/UserProfile";
 import NavBar from "./components/NavBar";
-import { setClientId } from "./store/clientSlice";
 import { clearSearch } from "./store/searchSlice";
 import ErrorPage from "./components/ErrorPage";
 
@@ -18,7 +17,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setClientId("mC3fORUFX8WFpE5wnaZ35qZUw4PXMWdzzzRmZCDO8lQ"));
     dispatch(clearSearch());
   }, [dispatch]);
 

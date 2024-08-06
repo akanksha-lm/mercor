@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import NoData from "../../../components/NoData";
 import PhotoButtons from "../../../components/PhotoButtons";
 import LoadingPage from "../../../components/LoadingPage";
 import ErrorPage from "../../../components/ErrorPage";
+import { setRemainingRequests } from "../../../store/clientSlice";
 
 import styles from "./Photos.module.css";
 
 const PromotedPhotos = () => {
   const { username } = useParams();
   const clientId = useSelector((state) => state.client.clientId);
+  const dispatch = useDispatch();
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -34,6 +36,11 @@ const PromotedPhotos = () => {
             },
           }
         );
+
+        // Update remaining requests in the Redux store
+        const rateLimitRemaining = response.headers["x-ratelimit-remaining"];
+        dispatch(setRemainingRequests(rateLimitRemaining));
+
         const promotedPhotos = response.data.filter(
           (photo) => photo.promoted_at !== null
         );
@@ -46,7 +53,7 @@ const PromotedPhotos = () => {
       }
     };
     fetchPhotos();
-  }, [username, clientId]);
+  }, [username, clientId, dispatch]);
 
   if (error) {
     return <ErrorPage />;
