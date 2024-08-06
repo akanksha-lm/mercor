@@ -10,12 +10,8 @@
   gap: 2rem;
 }
 
-.loading-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  width: 95vw;
+.photo-feed .loading-page {
+  width: 90vw;
   height: 15vh;
 }
 
